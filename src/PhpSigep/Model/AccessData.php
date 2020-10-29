@@ -24,14 +24,6 @@ class AccessData extends AbstractModel
     /**
      * @var string
      */
-    protected $idCorreiosUsuario;
-    /**
-     * @var string
-     */
-    protected $idCorreiosSenha;
-    /**
-     * @var string
-     */
     protected $cartaoPostagem;
     /**
      * @var string
@@ -103,7 +95,6 @@ class AccessData extends AbstractModel
      */
     public function getCartaoPostagem()
     {
-        
         return $this->cartaoPostagem;
     }
 
@@ -186,35 +177,4 @@ class AccessData extends AbstractModel
         $this->diretoria = $diretoria;
     }
 
-    /**
-     * @return string
-     */
-    public function getIdCorreiosUsuario()
-    {
-        return $this->idCorreiosUsuario;
-    }
-
-    /**
-     * @param string $idCorreiosUsuario
-     */
-    public function setIdCorreiosUsuario($idCorreiosUsuario)
-    {
-        $this->idCorreiosUsuario = $idCorreiosUsuario;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIdCorreiosSenha()
-    {
-        return $this->idCorreiosSenha;
-    }
-
-    /**
-     * @param string $idCorreiosSenha
-     */
-    public function setIdCorreiosSenha($idCorreiosSenha)
-    {
-        $this->idCorreiosSenha = $idCorreiosSenha;
-    }
 }

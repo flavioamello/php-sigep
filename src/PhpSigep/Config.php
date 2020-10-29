@@ -5,7 +5,6 @@ use PhpSigep\Cache\Options;
 use PhpSigep\Cache\Storage\Adapter\AdapterOptions;
 use PhpSigep\Cache\StorageInterface;
 use PhpSigep\Model\AccessData;
-use PhpSigep\Model\Proxy;
 use PhpSigep\Model\AccessDataHomologacao;
 
 /**
@@ -14,44 +13,22 @@ use PhpSigep\Model\AccessDataHomologacao;
  */
 class Config extends DefaultStdClass
 {
-
     /**
      * Indica que estamos no ambiente real (ambiente de producao).
      */
     const ENV_PRODUCTION = 1;
-    
-    /**
-     * Permite gerenciar o tempo de timeout das conexões (em caso de problemas de timeout verifique seu ambiente, acima de 30 deve funcionar somente em linha de comando)
-     */
-    const CONNECTION_TIMEOUT = 30;
-    
-    /**
-     * Defina o método para cache no WSDL do PHP (melhor WSDL_CACHE_BOTH)
-     * WSDL_CACHE_MEMORY = memória
-     * WSDL_CACHE_DISK = disco
-     * WSDL_CACHE_BOTH = memória e disco
-     * WSDL_CACHE_NONE = nenhum
-     */
-    const WSDL_CACHE = WSDL_CACHE_BOTH;
-
     /**
      * Indica que estamos no ambiente de desenvolvimento.
      */
     const ENV_DEVELOPMENT = 2;
-    const XML_ENCODE_ISO = "iso-8859-1";
-    const XML_ENCODE_UTF = "utf-8";
-    const WSDL_ATENDE_CLIENTE_PRODUCTION = 'https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';
-    const WSDL_ATENDE_CLIENTE_DEVELOPMENT = 'https://apphom.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';
-    const WSDL_CAL_PRECO_PRAZO = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?WSDL';
-    const WSDL_RASTREAR_OBJETOS = 'https://webservice.correios.com.br/service/rastro/Rastro.wsdl';
-    const WSDL_AGENCIAS_WS = 'https://cws.correios.com.br/cws/agenciaService/agenciaWS';
-    const WSDL_REVERSA_PRODUCTION = 'https://cws.correios.com.br/logisticaReversaWS/logisticaReversaService/logisticaReversaWS?wsdl';
-    const WSDL_REVERSA_DEVELOPMENT = 'https://apphom.correios.com.br/logisticaReversaWS/logisticaReversaService/logisticaReversaWS?wsdl';
-    const WSDL_PI_PRODUCTION = 'https://cws.correios.com.br/pedidoInformacaoWS/pedidoInformacaoService/pedidoInformacaoWS?wsdl';
-    const WSDL_PI_DEVELOPMENT = 'https://apphom.correios.com.br/pedidoInformacaoWS/pedidoInformacaoService/pedidoInformacaoWS?wsdl';
 
-//    const WSDL_REVERSA_PRODUCTION = 'http://webservicescol.correios.com.br/ScolWeb/WebServiceScol?wsdl';
-//    const WSDL_REVERSA_DEVELOPMENT = 'http://webservicescolhomologacao.correios.com.br/ScolWeb/WebServiceScol?wsdl';
+    const WSDL_ATENDE_CLIENTE_PRODUCTION = 'https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';
+
+    const WSDL_ATENDE_CLIENTE_DEVELOPMENT = 'https://apphom.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';
+
+    const WSDL_CAL_PRECO_PRAZO = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?WSDL';
+
+    const WSDL_RASTREAR_OBJETOS = 'https://webservice.correios.com.br/service/rastro/Rastro.wsdl';
 
     /**
      * Endereço para o WSDL AtendeCliente.
@@ -71,39 +48,14 @@ class Config extends DefaultStdClass
     protected $wsdlRastrearObjetos = self::WSDL_RASTREAR_OBJETOS;
 
     /**
-     * @var string
-     */
-    protected $wsdlAgenciaWS = self::WSDL_AGENCIAS_WS;
-
-    /**
-     * @var string
-     */
-    protected $wsdlPI = self::WSDL_PI_DEVELOPMENT;
-
-    /**
      * @var int
      */
     protected $env = self::ENV_DEVELOPMENT;
 
     /**
-     * @var string
-     */
-    protected $xml_encode = self::XML_ENCODE_UTF;
-
-    /**
      * @var bool
      */
     protected $simular = false;
-
-    /**
-     * @var int
-     */
-    protected $wsdlCache = self::WSDL_CACHE;
-
-    /**
-     * @var int
-     */
-    protected $connectionTimeout = self::CONNECTION_TIMEOUT;
 
     /**
      * @var AdapterOptions
@@ -132,13 +84,6 @@ class Config extends DefaultStdClass
     protected $accessData;
 
     /**
-     * Configurações de proxy para o SoapClient.
-     *
-     * @var proxy
-     */
-    protected $proxy;
-
-    /**
      * @param array $configData
      *      Qualquer atributo desta classe pode ser usado como uma chave deste array.
      *      Ex: array('cacheOptions' => ...)
@@ -156,23 +101,7 @@ class Config extends DefaultStdClass
      */
     public function getEnv()
     {
-        return (int) $this->env;
-    }
-
-    /**
-     * @return int
-     */
-    public function getWsdlCache()
-    {
-        return (int) $this->wsdlCache;
-    }
-
-    /**
-     * @return int
-     */
-    public function getConnectionTimeout()
-    {
-        return (int) $this->connectionTimeout;
+        return (int)$this->env;
     }
 
     /**
@@ -195,25 +124,6 @@ class Config extends DefaultStdClass
     }
 
     /**
-     * @param \PhpSigep\Model\Proxy $proxy
-     * @return $this;
-     */
-    public function setProxy(\PhpSigep\Model\Proxy $proxy)
-    {
-        $this->proxy = $proxy;
-
-        return $this;
-    }
-
-    /**
-     * @return \PhpSigep\Model\Proxy
-     */
-    public function getProxy()
-    {
-        return $this->proxy;
-    }
-
-    /**
      * @param int $env
      * @param bool $updateWsdlUrl
      * @return $this
@@ -233,46 +143,11 @@ class Config extends DefaultStdClass
     }
 
     /**
-     * @param int $env
-     * @return $this
-     */
-    public function setXmlEncode($xml_encode)
-    {
-        if ($xml_encode == self::XML_ENCODE_ISO) {
-            $this->xml_encode = self::XML_ENCODE_ISO;
-        } else {
-            $this->xml_encode = self::XML_ENCODE_UTF;
-        }
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getXmlEncode()
-    {
-        return $this->xml_encode;
-    }
-
-    /**
      * @return string
      */
     public function getWsdlAtendeCliente()
     {
         return $this->wsdlAtendeCliente;
-    }
-
-    public function getWsdlReversa()
-    {
-        switch ($this->env) {
-            case self::ENV_PRODUCTION:
-                return self::WSDL_REVERSA_PRODUCTION;
-                break;
-            case self::ENV_DEVELOPMENT:
-            default:
-                return self::WSDL_REVERSA_DEVELOPMENT;
-                break;
-        }
     }
 
     /**
@@ -322,45 +197,6 @@ class Config extends DefaultStdClass
     public function getWsdlRastrearObjetos()
     {
         return $this->wsdlRastrearObjetos;
-    }
-
-    /**
-     * @param string $wsdlAgenciaWS
-     * 
-     * @return $this;
-     */
-    public function setWsdlAgenciaWS($wsdlAgenciaWS)
-    {
-        $this->wsdlAgenciaWS = $wsdlAgenciaWS;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getWsdlAgenciaWS()
-    {
-        return $this->wsdlAgenciaWS;
-    }
-
-    /**
-     * @param $wsdlPI
-     * @return $this;
-     */
-    public function setWsdlPI($wsdlPI)
-    {
-        $this->wsdlPI = $wsdlPI;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getWsdlPI()
-    {
-        return $this->wsdlPI;
     }
 
     /**
@@ -437,7 +273,7 @@ class Config extends DefaultStdClass
     public function getCacheInstance()
     {
         if (!$this->cacheInstance) {
-            $factory = $this->getCacheFactory();
+            $factory             = $this->getCacheFactory();
             $this->cacheInstance = $factory->createService($this);
         }
 

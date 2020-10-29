@@ -53,7 +53,7 @@ abstract class AbstractChancela
     public function setNomeRemetente($nomeRemetente)
     {
         if (is_string($nomeRemetente) === false) {
-            throw new \InvalidArgumentException('Parâmetro $nomeRemetente precisa ser do tipo string');
+            throw new \InvalidArgumentException('Parâmetro $nomeRemetente precisa ser do tipo numérico');
         }
         $this->nomeRemetente = $nomeRemetente;
     }

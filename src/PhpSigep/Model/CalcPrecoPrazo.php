@@ -48,17 +48,15 @@ class CalcPrecoPrazo extends AbstractModel
     protected $ajustarDimensaoMinima = true;
 
     /**
-     * @param AccessData $accessData
-     * @return CalcPrecoPrazo
+     * @param \PhpSigep\Model\AccessData $accessData
      */
     public function setAccessData($accessData)
     {
         $this->accessData = $accessData;
-        return $this;
     }
 
     /**
-     * @return AccessData
+     * @return \PhpSigep\Model\AccessData
      */
     public function getAccessData()
     {
@@ -67,12 +65,10 @@ class CalcPrecoPrazo extends AbstractModel
 
     /**
      * @param string $cepDestino
-     * @return CalcPrecoPrazo
      */
     public function setCepDestino($cepDestino)
     {
         $this->cepDestino = $cepDestino;
-        return $this;
     }
 
     /**
@@ -85,12 +81,10 @@ class CalcPrecoPrazo extends AbstractModel
 
     /**
      * @param string $cepOrigem
-     * @return CalcPrecoPrazo
      */
     public function setCepOrigem($cepOrigem)
     {
         $this->cepOrigem = $cepOrigem;
-        return $this;
     }
 
     /**
@@ -102,17 +96,15 @@ class CalcPrecoPrazo extends AbstractModel
     }
 
     /**
-     * @param Dimensao $dimensao
-     * @return CalcPrecoPrazo
+     * @param \PhpSigep\Model\Dimensao $dimensao
      */
     public function setDimensao($dimensao)
     {
         $this->dimensao = $dimensao;
-        return $this;
     }
 
     /**
-     * @return Dimensao
+     * @return \PhpSigep\Model\Dimensao
      */
     public function getDimensao()
     {
@@ -122,12 +114,10 @@ class CalcPrecoPrazo extends AbstractModel
     /**
      * @param float $peso
      *      Em kilogramas, ou seja, 0.400 significa 400 gramas.
-     * @return CalcPrecoPrazo
      */
     public function setPeso($peso)
     {
         $this->peso = $peso;
-        return $this;
     }
 
     /**
@@ -140,17 +130,15 @@ class CalcPrecoPrazo extends AbstractModel
     }
 
     /**
-     * @param ServicoDePostagem[] $servicosPostagem
-     * @return CalcPrecoPrazo
+     * @param \PhpSigep\Model\ServicoDePostagem[] $servicosPostagem
      */
     public function setServicosPostagem($servicosPostagem)
     {
         $this->servicosPostagem = $servicosPostagem;
-        return $this;
     }
 
     /**
-     * @return ServicoDePostagem[]
+     * @return \PhpSigep\Model\ServicoDePostagem[]
      */
     public function getServicosPostagem()
     {
@@ -158,17 +146,15 @@ class CalcPrecoPrazo extends AbstractModel
     }
 
     /**
-     * @param ServicoAdicional[] $servicosAdicionais
-     * @return CalcPrecoPrazo
+     * @param \PhpSigep\Model\ServicoAdicional[] $servicosAdicionais
      */
     public function setServicosAdicionais($servicosAdicionais)
     {
         $this->servicosAdicionais = $servicosAdicionais;
-        return $this;
     }
 
     /**
-     * @return ServicoAdicional[]
+     * @return \PhpSigep\Model\ServicoAdicional[]
      */
     public function getServicosAdicionais()
     {
@@ -179,12 +165,10 @@ class CalcPrecoPrazo extends AbstractModel
      * @param boolean $ajustarDimensaoMinima
      *      Quando true, o sistema altera o tamanho das dimensões se elas forem menor que o mínimo permitido pelo
      *      correios.
-     * @return CalcPrecoPrazo
      */
     public function setAjustarDimensaoMinima($ajustarDimensaoMinima)
     {
         $this->ajustarDimensaoMinima = $ajustarDimensaoMinima;
-        return $this;
     }
 
     /**

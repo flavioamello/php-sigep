@@ -1,7 +1,6 @@
 <?php
 namespace PhpSigep\Services\Real;
 
-use PhpSigep\Bootstrap;
 use PhpSigep\Model\Destinatario;
 use PhpSigep\Model\Destino;
 use PhpSigep\Model\DestinoInternacional;
@@ -82,7 +81,7 @@ class FecharPreListaDePostagem
         $writer->openMemory();
         $writer->setIndentString("");
         $writer->setIndent(false);
-        $writer->startDocument('1.0', Bootstrap::getConfig()->getXmlEncode());
+        $writer->startDocument('1.0', 'UTF-8');
 
         $writer->startElement('correioslog');
         $writer->writeElement('tipo_arquivo', 'Postagem');
@@ -147,12 +146,6 @@ class FecharPreListaDePostagem
         $writer->startElement('email_remetente');
         $writer->writeCdata($this->_($data->getRemetente()->getEmail(), 50));
         $writer->endElement();
-        $writer->startElement('celular_remetente');
-        $writer->writeCdata($this->_($data->getRemetente()->getTelefone(), 50));
-        $writer->endElement();
-        $writer->startElement('cpf_cnpj_remetente');
-        $writer->endElement();
-        $writer->writeElement('ciencia_conteudo_proibido');
         $writer->endElement();
     }
 
@@ -171,7 +164,6 @@ class FecharPreListaDePostagem
         $writer->writeElement('peso', (float)$objetoPostal->getPeso() * 1000);
         $writer->writeElement('rt1');
         $writer->writeElement('rt2');
-        $writer->writeElement('restricao_anac', 0);
         $this->writeDestinatario($writer, $objetoPostal->getDestinatario());
         $this->writeDestino($writer, $objetoPostal->getDestino());
         $this->writeServicoAdicional($writer, (array)$objetoPostal->getServicosAdicionais());
@@ -192,7 +184,7 @@ class FecharPreListaDePostagem
             $str = trim($str);
         }
         if ($maxLength) {
-            $str = mb_substr($str, 0, $maxLength, 'UTF-8');
+            $str = substr($str, 0, $maxLength);
         }
 
         return $str;
@@ -221,8 +213,6 @@ class FecharPreListaDePostagem
         $writer->endElement();
         $writer->startElement('numero_end_destinatario');
         $writer->writeCdata($this->_($destinatario->getNumero(), 6));
-        $writer->endElement();
-        $writer->startElement('cpf_cnpj_destinatario');
         $writer->endElement();
         $writer->endElement();
     }
@@ -274,13 +264,12 @@ class FecharPreListaDePostagem
         foreach ($servicosAdicionais as $servicoAdicional) {
             if ($servicoAdicional->getCodigoServicoAdicional() != ServicoAdicional::SERVICE_REGISTRO) {
                 $writer->writeElement('codigo_servico_adicional', $servicoAdicional->getCodigoServicoAdicional());
-                $valorDeclarado = (float)$servicoAdicional->getValorDeclarado();
-                if ($valorDeclarado>0) {
+                if ($servicoAdicional->getCodigoServicoAdicional() == ServicoAdicional::SERVICE_VALOR_DECLARADO) {
                     $writer->writeElement('valor_declarado', (float)$servicoAdicional->getValorDeclarado());
                 }
             }
         }
-        $writer->writeElement('valor_declarado');
+
         $writer->endElement();
     }
 
@@ -290,7 +279,7 @@ class FecharPreListaDePostagem
         $writer->writeElement('tipo_objeto', $dimensao->getTipo());
         $writer->writeElement('dimensao_altura', $dimensao->getAltura());
         $writer->writeElement('dimensao_largura', $dimensao->getLargura());
-        $writer->writeElement('dimensao_comprimento', $dimensao->getComprimento());
+        $writer->writeElement('dimensao_comprimento', $dimensao->getComprimento() + 10);
         if (!$dimensao->getDiametro()) {
             $writer->writeElement('dimensao_diametro', 0);
         } else {

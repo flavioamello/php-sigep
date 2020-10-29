@@ -1,6 +1,5 @@
 <?php
 namespace PhpSigep\Model;
-use PhpSigep\Bootstrap;
 
 /**
  * @author: Stavarengo
@@ -45,7 +44,7 @@ class PreListaDePostagem extends AbstractModel
      */
     public function getAccessData()
     {
-        return ($this->accessData ? $this->accessData : Bootstrap::getConfig()->getAccessData());
+        return $this->accessData;
     }
 
     /**

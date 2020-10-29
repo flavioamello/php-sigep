@@ -35,21 +35,11 @@ class ConsultaCep
                 $consultaCepResposta->setBairro(SoapClientFactory::convertEncoding($r->return->bairro));
                 $consultaCepResposta->setCep($r->return->cep);
                 $consultaCepResposta->setCidade(SoapClientFactory::convertEncoding($r->return->cidade));
-                if (isset($r->return->complemento1)) {
-                    $consultaCepResposta->setComplemento1(SoapClientFactory::convertEncoding($r->return->complemento));
-                }
-                if (isset($r->return->complemento2)) {
-                    $consultaCepResposta->setComplemento2(SoapClientFactory::convertEncoding($r->return->complemento2));
-                }
-                if (isset($r->return->end)) {
-                    $consultaCepResposta->setEndereco(SoapClientFactory::convertEncoding($r->return->end));
-                }
-                if (isset($r->return->id)) {
-                    $consultaCepResposta->setId($r->return->id);
-                }
+                $consultaCepResposta->setComplemento1(SoapClientFactory::convertEncoding($r->return->complemento));
+                $consultaCepResposta->setComplemento2(SoapClientFactory::convertEncoding($r->return->complemento2));
+                $consultaCepResposta->setEndereco(SoapClientFactory::convertEncoding($r->return->end));
+                $consultaCepResposta->setId($r->return->id);
                 $consultaCepResposta->setUf($r->return->uf);
-                
-                 
                 $result->setResult($consultaCepResposta);
              } else {
                  $errorCode = 0;

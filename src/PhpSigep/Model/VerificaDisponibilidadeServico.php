@@ -1,7 +1,6 @@
 <?php
 namespace PhpSigep\Model;
 use PhpSigep\InvalidArgument;
-use PhpSigep\Bootstrap;
 
 /**
  * @author: Stavarengo
@@ -33,7 +32,7 @@ class VerificaDisponibilidadeServico extends AbstractModel
      */
     public function getAccessData()
     {
-        return ($this->accessData ? $this->accessData : Bootstrap::getConfig()->getAccessData());
+        return $this->accessData;
     }
 
     /**

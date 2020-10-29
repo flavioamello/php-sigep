@@ -53,4 +53,4 @@ for($i=1;$i<=$pageCount;$i++) {
 }
 
 
-$pdf->Output('teste.pdf', 'F');
+$pdf->Output();
