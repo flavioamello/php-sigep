@@ -134,9 +134,7 @@ class SoapClientFactory
         $from   = self::WEB_SERVICE_CHARSET;
         $str = false;
         
-        if (function_exists('iconv')) {
-            $str = iconv($from, $to . '//TRANSLIT', $string);
-        } elseif (function_exists('mb_convert_encoding')) {
+        if (function_exists('mb_convert_encoding')) {
             $str = mb_convert_encoding($string, $to, $from);
         }
 
